@@ -1,7 +1,9 @@
 module barrage{
 
 	export interface IEmitter{
-		setup(props: any, autoPlay: boolean);
+		bullet: IBullet;
+		
+		setup(bullet: IBullet, props: any, autoPlay: boolean);
 		start(params: any);
 		stop();
 		addAction(actionClass: any, props: any);

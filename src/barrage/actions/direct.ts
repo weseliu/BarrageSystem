@@ -1,6 +1,6 @@
-module barrage.actions{
+module barrage.actions {
 
-	export class direct extends action{
+	export class direct extends action {
 
 		protected maxChangeValue: number = 90;
 		protected currentDirection: number = 0;
@@ -14,8 +14,14 @@ module barrage.actions{
 			super.update(dt);
 
 			this.bullet.direction += this.speed;
-			if(this.bullet.direction - this.currentDirection > this.maxChangeValue){
-				this.bullet.direction = this.currentDirection + this.maxChangeValue;
+			if (this.maxChangeValue > 0) {
+				if (this.bullet.direction - this.currentDirection > this.maxChangeValue) {
+					this.bullet.direction = this.currentDirection + this.maxChangeValue;
+				}
+			} else {
+				if (this.bullet.direction - this.currentDirection < this.maxChangeValue) {
+					this.bullet.direction = this.currentDirection + this.maxChangeValue;
+				}
 			}
 		}
 	}

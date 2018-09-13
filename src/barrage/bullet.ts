@@ -7,10 +7,11 @@ module barrage{
 		public direction: number;
 
 		constructor(){
-			var txt =  new laya.display.Text();
-			txt.text = "A";
-			txt.color = "#ff0000";
-			this.object = txt;
+			var sprite =  new laya.display.Sprite();
+     		sprite.loadImage("buttet/b1.png");
+     		sprite.pivotX = 0;
+     		sprite.pivotY = 0;
+			this.object = sprite;
 			Laya.stage.addChild(this.object);
 		}
 

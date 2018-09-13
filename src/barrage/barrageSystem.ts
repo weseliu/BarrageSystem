@@ -1,7 +1,9 @@
 module barrage{
+	
 	export class barrageSystem{
-		constructor(){
 
+		public static create(emitterClass: any): IEmitter {
+			return new emitterClass() as IEmitter;
 		}
 	}
 }

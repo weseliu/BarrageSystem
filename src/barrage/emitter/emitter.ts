@@ -4,6 +4,7 @@ module barrage.emitter {
 
 	export class emitter implements IEmitter {
 
+		public bullet: IBullet = null;
 		protected actions: Map<any, any> = new Map<any, any>();
 		protected position: vec3 = new vec3();
 		protected lifeTime: number = 0;
@@ -14,7 +15,8 @@ module barrage.emitter {
 
 		protected children: Map<IBullet, any> = new Map<IBullet, any>(); 
 
-		public setup(props: any, autoPlay: boolean) {
+		public setup(bullet: IBullet, props: any, autoPlay: boolean) {
+			this.bullet = bullet;
 			this.actions.clear();
 
 			for (var prop in props) {
