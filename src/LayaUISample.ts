@@ -6,7 +6,10 @@ import WebGL = Laya.WebGL;
 
 //程序入口
 Laya.init(640, 1136, WebGL);
+Laya.Stat.show(0, 0);
 var emitter = new barrage.emitter.ringEmitter();
-emitter.addAction(barrage.actions.move, {speed: 100});
-emitter.setup({position: new barrage.common.vec3(320, 100, 0), lifeTime : 10, degrees : 30, intervalTime: 0.5}, false);
+emitter.setup({position: new barrage.common.vec3(320, 300, 0), lifeTime : 200, degrees : 30, intervalTime: 0.5}, false);
+emitter.addAction(barrage.actions.move, {speed: 2});
+emitter.addAction(barrage.actions.direct, {speed: 1});
+
 emitter.start();
