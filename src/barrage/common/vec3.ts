@@ -18,6 +18,15 @@ module barrage.common {
 			}
 		}
 
+		public static fromDegrees(degrees: number): vec3 {
+			var radian = degrees * 0.017453293;
+			return new vec3( Math.sin(radian), Math.cos(radian), 0);
+		}
+
+		public static fromRadian(radian: number): vec3 {
+			return new vec3( Math.sin(radian), Math.cos(radian), 0);
+		}
+
 		public normalize() {
 			var n = this.x * this.x + this.y * this.y + this.z * this.z;
 			n = 1 / Math.sqrt(n);
@@ -43,5 +52,10 @@ module barrage.common {
 		public sub(v: vec3): vec3 {
 			return new vec3(this.x - v.x, this.y - v.y, this.z - v.z);
 		}
+
+		public mul(v: number): vec3 {
+			return new vec3(this.x * v, this.y * v, this.z * v);
+		}
+
 	}
 }

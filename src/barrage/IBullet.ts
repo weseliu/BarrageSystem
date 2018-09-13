@@ -3,7 +3,7 @@ module barrage{
 
 		object: any;
 		position: common.vec3;
-		direction: common.vec3;
+		direction: number;
 
 		setup(props: any);
 		addAction(action: IAction);

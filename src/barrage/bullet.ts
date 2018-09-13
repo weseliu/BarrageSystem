@@ -4,7 +4,7 @@ module barrage{
 
 		public object: any;
 		public position: common.vec3;
-		public direction: common.vec3;
+		public direction: number;
 
 		constructor(){
 			var txt =  new laya.display.Text();

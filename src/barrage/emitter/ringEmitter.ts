@@ -30,15 +30,10 @@ module barrage.emitter{
 				if(this.bulletCreator != null || true){
 					//var bullet = this.bulletCreator() as IBullet;
 					var bullet = new barrage.bullet();
-					var radian = (i * this.degrees) * 0.017453293;
-					var dir = new vec3();
-					dir.x = Math.sin(radian);
-					dir.y = Math.cos(radian);
-					bullet.setup({direction: dir.normalize(), position: this.position});
+					bullet.setup({direction: i * this.degrees, position: this.position});
 					this.actions.forEach(function(v, key, map){
 						var action = new key() as IAction;
-						v.bullet = bullet;
-						action.setup(v);
+						action.setup(bullet, v);
 						bullet.addAction(action);
 					});
 					this.children.set(bullet, 1);
