@@ -2,6 +2,7 @@ module actions {
 
 	export class FiniteTimeAction extends Action {
 
+		protected duration: number = 0;
 		protected timesForRepeat: number = 1;
 
 		constructor() {
@@ -18,7 +19,8 @@ module actions {
 			this.duration = duration;
 		}
 
-		public reverse() {
+		public reverse() : FiniteTimeAction{
+			return null;
 		}
 
 		public clone() {

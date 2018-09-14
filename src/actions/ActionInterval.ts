@@ -1,75 +1,78 @@
 module actions {
 	export class ActionInterval extends FiniteTimeAction {
-		protected _elapsed: number = 0;
-		protected _firstTick: boolean = false;
-		protected _easeList = null;
-		protected _timesForRepeat: number = 1;
-		protected _repeatForever: boolean = false;
-		protected _repeatMethod: boolean = false;
-		protected _speed: number = 1;
+		protected elapsed: number = 0;
+		protected firstTick: boolean = false;
+		protected easeList = null;
+		protected timesForRepeat: number = 1;
+		protected repeatForever: boolean = false;
+		protected repeatMethod: boolean = false;
+		protected speed: number = 1;
 
 		private MAX_VALUE: number = 2;
 
 		constructor(duration: number) {
 			super();
 
-			this._speed = 1;
-			this._timesForRepeat = 1;
-			this._repeatForever = false;
-			this._repeatMethod = false;
+			this.speed = 1;
+			this.timesForRepeat = 1;
+			this.repeatForever = false;
+			this.repeatMethod = false;
 			duration && this.initWithDuration(duration);
 		}
 
 		public getElapsed(): number {
-			return this._elapsed;
+			return this.elapsed;
 		}
 
-		public initWithDuration(duration: number) {
+		public initWithDuration(duration: number): boolean {
 			this.duration = duration;
-			this._elapsed = 0;
-			this._firstTick = true;
+			this.elapsed = 0;
+			this.firstTick = true;
 			return true;
 		}
 
 		public isDone(): boolean {
-			return (this._elapsed >= this.duration);
+			return (this.elapsed >= this.duration);
 		}
 
-		protected cloneDecoration(action) {
-			action._repeatForever = this._repeatForever;
-			action._speed = this._speed;
-			action._timesForRepeat = this._timesForRepeat;
-			action._easeList = this._easeList;
-			action._repeatMethod = this._repeatMethod;
+		protected cloneDecoration(action: ActionInterval) {
+			action.repeatForever = this.repeatForever;
+			action.speed = this.speed;
+			action.timesForRepeat = this.timesForRepeat;
+			action.easeList = this.easeList;
+			action.repeatMethod = this.repeatMethod;
 		}
 
 		protected reverseEaseList(action) {
-			if (this._easeList) {
+			if (this.easeList) {
 				action._easeList = [];
-				for (var i = 0; i < this._easeList.length; i++) {
-					action._easeList.push(this._easeList[i].reverse());
+				for (var i = 0; i < this.easeList.length; i++) {
+					action._easeList.push(this.easeList[i].reverse());
 				}
 			}
 		}
 
-		public clone() {
+		public clone(): ActionInterval {
 			var action = new ActionInterval(this.duration);
 			this.cloneDecoration(action);
 			return action;
 		}
 
-		public easing(easeObj) : ActionInterval{
-			if (this._easeList)
-				this._easeList.length = 0;
-			else
-				this._easeList = [];
-			for (var i = 0; i < arguments.length; i++)
-				this._easeList.push(arguments[i]);
+		public easing(easeObj): ActionInterval {
+			if (this.easeList) {
+				this.easeList.length = 0;
+			}
+			else {
+				this.easeList = [];
+			}
+			for (var i = 0; i < arguments.length; i++) {
+				this.easeList.push(arguments[i]);
+			}
 			return this;
 		}
 
-		protected computeEaseTime(dt: number) : number{
-			var locList = this._easeList;
+		protected computeEaseTime(dt: number): number {
+			var locList = this.easeList;
 			if ((!locList) || (locList.length === 0)) {
 				return dt;
 			}
@@ -80,29 +83,30 @@ module actions {
 		}
 
 		public step(dt: number) {
-			if (this._firstTick) {
-				this._firstTick = false;
-				this._elapsed = 0;
-			} else
-				this._elapsed += dt;
+			if (this.firstTick) {
+				this.firstTick = false;
+				this.elapsed = 0;
+			} else {
+				this.elapsed += dt;
+			}
 
-			var t = this._elapsed / (this.duration > 0.0000001192092896 ? this.duration : 0.0000001192092896);
+			var t = this.elapsed / (this.duration > 0.0000001192092896 ? this.duration : 0.0000001192092896);
 			t = (1 > t ? t : 1);
 			this.update(t > 0 ? t : 0);
 
-			if (this._repeatMethod && this._timesForRepeat > 1 && this.isDone()) {
-				if (!this._repeatForever) {
-					this._timesForRepeat--;
+			if (this.repeatMethod && this.timesForRepeat > 1 && this.isDone()) {
+				if (!this.repeatForever) {
+					this.timesForRepeat--;
 				}
 				this.startWithTarget(this.target);
-				this.step(this._elapsed - this.duration);
+				this.step(this.elapsed - this.duration);
 			}
 		}
 
-		public startWithTarget (target) {
+		public startWithTarget(target) {
 			super.startWithTarget(target);
-			this._elapsed = 0;
-			this._firstTick = true;
+			this.elapsed = 0;
+			this.firstTick = true;
 		}
 
 		public reverse() {
@@ -112,27 +116,26 @@ module actions {
 		public setAmplitudeRate(amp) {
 		}
 
-		public getAmplitudeRate() : number{
+		public getAmplitudeRate(): number {
 			return 0;
 		}
 
-		public speed(speed: number): ActionInterval {
+		public changeSpeed(speed: number): ActionInterval {
 			if (speed <= 0) {
 				return this;
 			}
 
-			this._speed *= speed;
+			this.speed *= speed;
 			return this;
 		}
 
 		public getSpeed(): number {
-			return this._speed;
+			return this.speed;
 		}
 
 		public setSpeed(speed: number) {
-			this._speed = speed;
+			this.speed = speed;
 			return this;
 		}
-
 	}
 }

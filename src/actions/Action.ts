@@ -2,7 +2,6 @@ module actions {
 
 	export class Action {
 
-		public duration: number = 0;
 		protected originalTarget: any = null;
 		protected target: any = null;
 		protected tag: string = "";
