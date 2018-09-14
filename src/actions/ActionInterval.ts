@@ -3,20 +3,12 @@ module actions {
 		protected elapsed: number = 0;
 		protected firstTick: boolean = false;
 		protected easeList = null;
-		protected timesForRepeat: number = 1;
-		protected repeatForever: boolean = false;
-		protected repeatMethod: boolean = false;
 		protected speed: number = 1;
-
-		private MAX_VALUE: number = 2;
 
 		constructor(duration: number) {
 			super();
 
 			this.speed = 1;
-			this.timesForRepeat = 1;
-			this.repeatForever = false;
-			this.repeatMethod = false;
 			duration && this.initWithDuration(duration);
 		}
 
@@ -36,11 +28,8 @@ module actions {
 		}
 
 		protected cloneDecoration(action: ActionInterval) {
-			action.repeatForever = this.repeatForever;
 			action.speed = this.speed;
-			action.timesForRepeat = this.timesForRepeat;
 			action.easeList = this.easeList;
-			action.repeatMethod = this.repeatMethod;
 		}
 
 		protected reverseEaseList(action) {
@@ -58,15 +47,15 @@ module actions {
 			return action;
 		}
 
-		public easing(easeObj): ActionInterval {
+		public easing(...easeObj): ActionInterval {
 			if (this.easeList) {
 				this.easeList.length = 0;
 			}
 			else {
 				this.easeList = [];
 			}
-			for (var i = 0; i < arguments.length; i++) {
-				this.easeList.push(arguments[i]);
+			for (var i = 0; i < easeObj.length; i++) {
+				this.easeList.push(easeObj[i]);
 			}
 			return this;
 		}
@@ -90,17 +79,10 @@ module actions {
 				this.elapsed += dt;
 			}
 
-			var t = this.elapsed / (this.duration > 0.0000001192092896 ? this.duration : 0.0000001192092896);
+			var duration = this.duration > 0.0000001192092896 ? this.duration : 0.0000001192092896;
+			var t = this.elapsed / duration;
 			t = (1 > t ? t : 1);
 			this.update(t > 0 ? t : 0);
-
-			if (this.repeatMethod && this.timesForRepeat > 1 && this.isDone()) {
-				if (!this.repeatForever) {
-					this.timesForRepeat--;
-				}
-				this.startWithTarget(this.target);
-				this.step(this.elapsed - this.duration);
-			}
 		}
 
 		public startWithTarget(target) {

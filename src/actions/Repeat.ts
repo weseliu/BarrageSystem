@@ -1,10 +1,10 @@
 module actions {
 	export class Repeat extends ActionInterval {
-		protected _times: number = 0;
-		protected _total: number  = 0;
-		protected _nextDt: number = 0;
-		protected _actionInstant: boolean = false;
-		protected _innerAction: FiniteTimeAction = null;
+		protected times: number = 0;
+		protected total: number  = 0;
+		protected nextDt: number = 0;
+		protected actionInstant: boolean = false;
+		protected innerAction: FiniteTimeAction = null;
 
 		constructor(action: FiniteTimeAction, times: number) {
 			super(0);
@@ -13,15 +13,14 @@ module actions {
 
 		public initWithAction(action: FiniteTimeAction, times: number) {
 			var duration = action.duration * times;
-
 			if (this.initWithDuration(duration)) {
-				this._times = times;
-				this._innerAction = action;
+				this.times = times;
+				this.innerAction = action;
 				if (action instanceof ActionInstant) {
-					this._actionInstant = true;
-					this._times -= 1;
+					this.actionInstant = true;
+					this.times -= 1;
 				}
-				this._total = 0;
+				this.total = 0;
 				return true;
 			}
 			return false;
@@ -30,45 +29,45 @@ module actions {
 		public clone() {
 			var action = new Repeat(null, 0);
 			this.cloneDecoration(action);
-			action.initWithAction(this._innerAction.clone(), this._times);
+			action.initWithAction(this.innerAction.clone(), this.times);
 			return action;
 		}
 
 		public startWithTarget(target) {
 			super.startWithTarget(target);
-			this._total = 0;
-			this._nextDt = this._innerAction.duration / this.duration;
-			this._innerAction.startWithTarget(target);
+			this.total = 0;
+			this.nextDt = this.innerAction.duration / this.duration;
+			this.innerAction.startWithTarget(target);
 		}
 
 		public stop() {
-			this._innerAction.stop();
+			this.innerAction.stop();
 			super.stop();
 		}
 
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
-			var locInnerAction = this._innerAction;
+			var locInnerAction = this.innerAction;
 			var locDuration = this.duration;
-			var locTimes = this._times;
-			var locNextDt = this._nextDt;
+			var locTimes = this.times;
+			var locNextDt = this.nextDt;
 
 			if (dt >= locNextDt) {
-				while (dt > locNextDt && this._total < locTimes) {
+				while (dt > locNextDt && this.total < locTimes) {
 					locInnerAction.update(1);
-					this._total++;
+					this.total++;
 					locInnerAction.stop();
 					locInnerAction.startWithTarget(this.target);
 					locNextDt += locInnerAction.duration / locDuration;
-					this._nextDt = locNextDt;
+					this.nextDt = locNextDt;
 				}
 
-				if (dt >= 1.0 && this._total < locTimes){
-					this._total++;
+				if (dt >= 1.0 && this.total < locTimes){
+					this.total++;
 				}
 
-				if (!this._actionInstant) {
-					if (this._total === locTimes) {
+				if (!this.actionInstant) {
+					if (this.total === locTimes) {
 						locInnerAction.update(1);
 						locInnerAction.stop();
 					} else {
@@ -81,24 +80,24 @@ module actions {
 		}
 
 		public isDone() {
-			return this._total === this._times;
+			return this.total === this.times;
 		}
 
 		public reverse() {
-			var action = new Repeat(this._innerAction.reverse(), this._times);
+			var action = new Repeat(this.innerAction.reverse(), this.times);
 			this.cloneDecoration(action);
 			this.reverseEaseList(action);
 			return action;
 		}
 
 		public setInnerAction(action) {
-			if (this._innerAction !== action) {
-				this._innerAction = action;
+			if (this.innerAction !== action) {
+				this.innerAction = action;
 			}
 		}
 
 		public getInnerAction() {
-			return this._innerAction;
+			return this.innerAction;
 		}
 	}
 

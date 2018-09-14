@@ -1,54 +1,49 @@
 module actions {
 	export class RotateBy extends ActionInterval {
-		protected _angleX: number = 0;
-		protected _startAngleX: number = 0;
-		protected _angleY: number = 0;
-		protected _startAngleY: number = 0;
+		protected _angle: number = 0;
+		protected _startAngle: number = 0;
 
-		constructor(duration, deltaAngleX, deltaAngleY) {
+		constructor(duration, deltaAngle) {
 			super(duration);
-			this.initWithDurationInner(duration, deltaAngleX, deltaAngleY);
+			this.initWithDurationInner(duration, deltaAngle);
 		}
 
-		private initWithDurationInner(duration, deltaAngleX, deltaAngleY) : boolean{
+		private initWithDurationInner(duration, deltaAngle) : boolean{
 			if (super.initWithDuration(duration)) {
-				this._angleX = deltaAngleX || 0;
-				this._angleY = deltaAngleY || this._angleX;
+				this._angle = deltaAngle || 0;
 				return true;
 			}
 			return false;
 		}
 
 		public clone() {
-			var action = new RotateBy(this.duration, this._angleX, this._angleY);
+			var action = new RotateBy(this.duration, this._angle);
 			this.cloneDecoration(action);
-			action.initWithDurationInner(this.duration, this._angleX, this._angleY);
+			action.initWithDurationInner(this.duration, this._angle);
 			return action;
 		}
 
 		public startWithTarget(target) {
 			super.startWithTarget(target);
-			this._startAngleX = target.rotationX;
-			this._startAngleY = target.rotationY;
+			this._startAngle = target.rotation;
 		}
 
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
-				this.target.rotationX = this._startAngleX + this._angleX * dt;
-				this.target.rotationY = this._startAngleY + this._angleY * dt;
+				this.target.rotation = this._startAngle + this._angle * dt;
 			}
 		}
 
 		public reverse() {
-			var action = new RotateBy(this.duration, -this._angleX, -this._angleY);
+			var action = new RotateBy(this.duration, -this._angle);
 			this.cloneDecoration(action);
 			this.reverseEaseList(action);
 			return action;
 		}
 	}
 
-	export function rotateBy(duration, deltaAngleX, deltaAngleY) {
-		return new RotateBy(duration, deltaAngleX, deltaAngleY);
+	export function rotateBy(duration, deltaAngle) {
+		return new RotateBy(duration, deltaAngle);
 	};
 }

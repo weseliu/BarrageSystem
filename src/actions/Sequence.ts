@@ -1,33 +1,45 @@
 module actions {
 	export class Sequence extends ActionInterval {
-		protected _actions: Array<Action> = null;
-		protected _split: any = null;
-		protected _last: number = 0;
+		protected actions: Array<FiniteTimeAction> = new Array<FiniteTimeAction>(2);
+		protected split: any = null;
+		protected last: number = 0;
 
-		constructor(actions: Array<Action>) {
+		constructor(...actions) {
 			super(0);
-			this._actions.length = 0;
-			if (actions != null && actions.length > 0) {
-				var prev = actions[0];
+			
+			var paramArray = new Array();
+			for (var i = 0; i < actions.length; i++) {
+				var action = actions[i];
+				if (action instanceof Array) {
+					for (var j = 0; j < action.length; j++) {
+						paramArray.push(action[j]);
+					}
+				} else {
+					paramArray.push(action);
+				}
+			}
+
+			var last = paramArray.length - 1;
+			if (last >= 0) {
+				var prev = paramArray[0];
 				var action1 = prev;
-				for (var i = 1; i < actions.length - 1; i++) {
-					if (actions[i]) {
+				for (var i = 1; i < last; i++) {
+					if (paramArray[i]) {
 						action1 = prev;
-						prev = Sequence.actionOneTwo(action1, actions[i]);
+						prev = Sequence.actionOneTwo(action1, paramArray[i]);
 					}
 				}
-				this.initWithTwoActions(prev, actions[actions.length - 1]);
+				this.initWithTwoActions(prev, paramArray[last]);
 			}
 		}
 
-		public initWithTwoActions(actionOne: Action, actionTwo: Action) {
+		public initWithTwoActions(actionOne: FiniteTimeAction, actionTwo: FiniteTimeAction) {
 			if (actionOne && actionTwo) {
-
 				var d = actionOne.duration + actionTwo.duration;
 				this.initWithDuration(d);
-
-				this._actions[0] = actionOne;
-				this._actions[1] = actionTwo;
+				
+				this.actions[0] = actionOne;
+				this.actions[1] = actionTwo;
 				return true;
 			}
 			return false;
@@ -36,26 +48,26 @@ module actions {
 		public clone() {
 			var action = new Sequence(null);
 			this.cloneDecoration(action);
-			action.initWithTwoActions(this._actions[0].clone(), this._actions[1].clone());
+			action.initWithTwoActions(this.actions[0].clone(), this.actions[1].clone());
 			return action;
 		}
 
 		public startWithTarget(target) {
 			super.startWithTarget(target);
-			this._split = this._actions[0].duration / this.duration;
-			this._last = -1;
+			this.split = this.actions[0].duration / this.duration;
+			this.last = -1;
 		}
 
 		public stop() {
-			if (this._last !== -1) {
-				this._actions[this._last].stop();
+			if (this.last !== -1) {
+				this.actions[this.last].stop();
 			}
 			super.stop();
 		}
 
 		public update(dt) {
 			var new_t, found = 0;
-			var locSplit = this._split, locActions = this._actions, locLast = this._last, actionFound;
+			var locSplit = this.split, locActions = this.actions, locLast = this.last, actionFound;
 
 			dt = this.computeEaseTime(dt);
 			if (dt < locSplit) {
@@ -99,46 +111,22 @@ module actions {
 
 			new_t = new_t * actionFound._timesForRepeat;
 			actionFound.update(new_t > 1 ? new_t % 1 : new_t);
-			this._last = found;
+			this.last = found;
 		}
 
 		public reverse(): Sequence {
-			var action = Sequence.actionOneTwo(this._actions[1].reverse(), this._actions[0].reverse());
+			var action = Sequence.actionOneTwo(this.actions[1].reverse(), this.actions[0].reverse());
 			this.cloneDecoration(action);
 			this.reverseEaseList(action);
 			return action;
 		}
 
 		public static actionOneTwo = function (actionOne, actionTwo) {
-			var sequence = new Sequence(null);
-			sequence.initWithTwoActions(actionOne, actionTwo);
-			return sequence;
+			return new Sequence(actionOne, actionTwo);
 		}
 	}
 
-	export function sequence(tempArray) {
-		var paramArray = (tempArray instanceof Array) ? tempArray : arguments;
-		if ((paramArray.length > 0) && (paramArray[paramArray.length - 1] == null)) {
-			return null;
-		}
-
-		var result, current, i, repeat;
-		while (paramArray && paramArray.length > 0) {
-			current = Array.prototype.shift.call(paramArray);
-			repeat = current._timesForRepeat || 1;
-			current._repeatMethod = false;
-			current._timesForRepeat = 1;
-
-			i = 0;
-			if (!result) {
-				result = current;
-				i = 1;
-			}
-
-			for (i; i < repeat; i++) {
-				result = Sequence.actionOneTwo(result, current);
-			}
-		}
-		return result;
+	export function sequence(...actions) {
+		return new Sequence(...actions);
 	}
 }

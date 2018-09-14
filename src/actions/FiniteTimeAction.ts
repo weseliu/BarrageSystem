@@ -2,17 +2,15 @@ module actions {
 
 	export class FiniteTimeAction extends Action {
 
-		protected duration: number = 0;
-		protected timesForRepeat: number = 1;
+		public duration: number = 0;
 
 		constructor() {
 			super();
 			this.duration = 0;
-			this.timesForRepeat = 1;
 		}
 
 		public getDuration(): number {
-			return this.duration * this.timesForRepeat;
+			return this.duration;
 		}
 
 		public setDuration(duration: number) {

@@ -27,10 +27,14 @@ module actions {
 		public startWithTarget(target){
 			this.originalTarget = target;
 			this.target = target;
+			Laya.timer.frameLoop(1, this, function(){
+				this.step(Laya.timer.delta);
+			}.bind(this));
 		}
 
 		public stop(){
 			this.target = null;
+			Laya.timer.clearAll(this);
 		}
 
 		public step(dt: number){
