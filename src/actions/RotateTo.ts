@@ -1,31 +1,26 @@
 module actions {
 	export class RotateTo extends ActionInterval {
-		protected _dstAngleX: number = 0;
-		protected _startAngleX: number = 0;
-		protected _diffAngleX: number = 0;
+		protected _dstAngle: number = 0;
+		protected _startAngle: number = 0;
+		protected _diffAngle: number = 0;
 
-		protected _dstAngleY: number = 0;
-		protected _startAngleY: number = 0;
-		protected _diffAngleY: number = 0;
-
-		constructor(duration: number, deltaAngleX: number, deltaAngleY: number) {
+		constructor(duration: number, deltaAngle: number) {
 			super(duration);
-			this.initWithDurationInner(duration, deltaAngleX, deltaAngleY)
+			this.initWithDurationInner(duration, deltaAngle)
 		}
 
-		private initWithDurationInner(duration: number, deltaAngleX: number, deltaAngleY: number): boolean {
+		private initWithDurationInner(duration: number, deltaAngleX: number): boolean {
 			if (super.initWithDuration(duration)) {
-				this._dstAngleX = deltaAngleX || 0;
-				this._dstAngleY = deltaAngleY || this._dstAngleX;
+				this._dstAngle = deltaAngleX || 0;
 				return true;
 			}
 			return false;
 		}
 
 		public clone() {
-			var action = new RotateTo(this.duration, this._dstAngleX, this._dstAngleY);
+			var action = new RotateTo(this.duration, this._dstAngle);
 			this.cloneDecoration(action);
-			action.initWithDurationInner(this.duration, this._dstAngleX, this._dstAngleY);
+			action.initWithDurationInner(this.duration, this._dstAngle);
 			return action;
 		}
 
@@ -33,27 +28,16 @@ module actions {
 			super.startWithTarget(target);
 
 			// Calculate X
-			var locStartAngleX = target.rotationX % 360.0;
-			var locDiffAngleX = this._dstAngleX - locStartAngleX;
-			if (locDiffAngleX > 180) {
-				locDiffAngleX -= 360;
+			var locStartAngle = target.rotation % 360.0;
+			var locDiffAngle = this._dstAngle - locStartAngle;
+			if (locDiffAngle > 180) {
+				locDiffAngle -= 360;
 			}
-			if (locDiffAngleX < -180) {
-				locDiffAngleX += 360;
+			if (locDiffAngle < -180) {
+				locDiffAngle += 360;
 			}
-			this._startAngleX = locStartAngleX;
-			this._diffAngleX = locDiffAngleX;
-
-			// Calculate Y  It's duplicated from calculating X since the rotation wrap should be the same
-			this._startAngleY = target.rotationY % 360.0;
-			var locDiffAngleY = this._dstAngleY - this._startAngleY;
-			if (locDiffAngleY > 180) {
-				locDiffAngleY -= 360;
-			}
-			if (locDiffAngleY < -180) {
-				locDiffAngleY += 360;
-			}
-			this._diffAngleY = locDiffAngleY;
+			this._startAngle = locStartAngle;
+			this._diffAngle = locDiffAngle;
 		}
 
 		public reverse() {
@@ -62,13 +46,12 @@ module actions {
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
-				this.target.rotationX = this._startAngleX + this._diffAngleX * dt;
-				this.target.rotationY = this._startAngleY + this._diffAngleY * dt;
+				this.target.rotation = this._startAngle + this._diffAngle * dt;
 			}
 		}
 	}
 
-	export function rotateTo(duration, deltaAngleX, deltaAngleY) : RotateTo{
-		return new RotateTo(duration, deltaAngleX, deltaAngleY);
+	export function rotateTo(duration, deltaAngle) : RotateTo{
+		return new RotateTo(duration, deltaAngle);
 	};
 }
