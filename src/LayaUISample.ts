@@ -21,6 +21,6 @@ txt.color = "#ff0000";
 txt.pos(320, 300);
 
 // var action = actions.repeat(actions.rotateBy(1000, 720), 100);
-var action = actions.sequence(actions.rotateBy(1000, 720), actions.rotateBy(1000, -720));
+var action = actions.spawn(actions.moveBy(10000, 100, 100), actions.skewBy(10000, 100, 100));
 action.startWithTarget(txt);
 Laya.stage.addChild(txt);

@@ -1,10 +1,10 @@
 module actions {
 	export class Spawn extends ActionInterval {
-		
+
 		protected one: FiniteTimeAction = null;
 		protected two: FiniteTimeAction = null;
 
-		constructor(actions: any) {
+		constructor(...actions) {
 			super(0);
 			this.one = null;
 			this.two = null;
@@ -99,7 +99,7 @@ module actions {
 		};
 	}
 
-	export function spawn(actions: any): Spawn {
+	export function spawn(...actions): Spawn {
 		return new Spawn(actions);
 	}
 }
