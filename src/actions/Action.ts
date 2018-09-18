@@ -1,12 +1,54 @@
 module actions {
 
 	export class Point {
-		public x : number = 0;
-		public y : number = 0;
-		
-		constructor(x: number = 0, y: number = 0){
+		public x: number = 0;
+		public y: number = 0;
+
+		constructor(x: number = 0, y: number = 0) {
 			this.x = x;
 			this.y = y;
+		}
+
+		public static neg(point: Point) {
+			return new Point(point.x, point.y);
+		}
+
+		public static add(v1: Point, v2: Point) {
+			return new Point(v1.x + v2.x, v1.y + v2.y);
+		}
+
+		public static sub(v1: Point, v2: Point) {
+			return new Point(v1.x - v2.x, v1.y - v2.y);
+		}
+
+		public static mult(v1: Point, v: number) {
+			return new Point(v1.x * v, v1.y * v);
+		}
+
+		public static midpoint(v1: Point, v2: Point) {
+			return Point.mult(Point.add(v1, v2), 0.5);
+		}
+
+		public static dot(v1: Point, v2: Point) {
+			return v1.x * v2.x + v1.y * v2.y;
+		}
+
+		public static cross(v1: Point, v2: Point) {
+			return v1.x * v2.y - v1.y * v2.x;
+		}
+	}
+
+	export class Color {
+		public r: number = 0;
+		public g: number = 0;
+		public b: number = 0;
+		public a: number = 0;
+
+		constructor(r: number = 0, g: number = 0, b: number = 0, a: number = 1) {
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.a = a;
 		}
 	}
 
@@ -34,52 +76,52 @@ module actions {
 			return true;
 		}
 
-		public startWithTarget(target){
+		public startWithTarget(target) {
 			this.originalTarget = target;
 			this.target = target;
-			Laya.timer.frameLoop(1, this, function(){
+			Laya.timer.frameLoop(1, this, function () {
 				this.step(Laya.timer.delta);
 			}.bind(this));
 		}
 
-		public stop(){
+		public stop() {
 			this.target = null;
 			Laya.timer.clearAll(this);
 		}
 
-		public step(dt: number){
+		public step(dt: number) {
 
 		}
 
-		public update(dt: number){
+		public update(dt: number) {
 
 		}
 
-		public reverse(){
-			
+		public reverse() {
+
 		}
 
-		public getTarget(): any{
+		public getTarget(): any {
 			return this.target;
 		}
 
-		public setTarget(target: any){
+		public setTarget(target: any) {
 			this.target = target;
 		}
 
-		public getOriginalTarget(): any{
+		public getOriginalTarget(): any {
 			return this.originalTarget;
 		}
 
-		public setOriginalTarget(target: any){
+		public setOriginalTarget(target: any) {
 			this.originalTarget = target;
 		}
 
-		public getTag(): string{
+		public getTag(): string {
 			return this.tag;
 		}
 
-		public setTag(tag: string){
+		public setTag(tag: string) {
 			this.tag = tag;
 		}
 	}
