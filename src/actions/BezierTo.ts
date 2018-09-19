@@ -24,7 +24,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			var locStartPos = this.startPosition;
 			var locToConfig = this.toConfig;

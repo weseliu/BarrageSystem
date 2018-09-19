@@ -65,7 +65,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.one.startWithTarget(target);
 			this.two.startWithTarget(target);

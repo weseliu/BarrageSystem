@@ -30,10 +30,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 
-			var color = target.color;
+			var color = target.getColor();
 			this.fromR = color.r;
 			this.fromG = color.g;
 			this.fromB = color.b;
@@ -42,9 +42,9 @@ module actions {
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 
-			this.target.color = new Color(this.fromR + this.deltaR * dt,
+			this.target.setColor(this.fromR + this.deltaR * dt,
 				this.fromG + this.deltaG * dt,
-				this.fromB + this.deltaB * dt);
+				this.fromB + this.deltaB * dt, 1);
 
 		}
 

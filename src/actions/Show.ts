@@ -2,7 +2,7 @@ module actions {
 	export class Show extends ActionInstant {
 
 		public update(dt) {
-			this.target.visible = true;
+			this.target.setVisible(true);
 		}
 
 		public reverse() {

@@ -28,17 +28,17 @@ module actions {
 			if (this.target && !this.isDone()) {
 				var slice = 1.0 / this.times;
 				var m = dt % slice;
-				this.target.visible = (m > (slice / 2));
+				this.target.setVisible(m > (slice / 2));
 			}
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this.originalState = target.visible;
+			this.originalState = target.getVisible();
 		}
 
 		public stop() {
-			this.target.visible = this.originalState;
+			this.target.setVisible(this.originalState);
 			super.stop();
 		}
 

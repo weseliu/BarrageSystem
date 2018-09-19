@@ -30,10 +30,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			var locPosX = target.x;
-			var locPosY = target.y;
+			var locPosX = target.getPosition().x;
+			var locPosY = target.getPosition().y;
 			this.previousPosition.x = locPosX;
 			this.previousPosition.y = locPosY;
 			this.startPosition.x = locPosX;
@@ -46,8 +46,8 @@ module actions {
 				var x = this.positionDelta.x * dt;
 				var y = this.positionDelta.y * dt;
 				var locStartPosition = this.startPosition;
-				var targetX = this.target.x;
-				var targetY = this.target.y;
+				var targetX = this.target.getPosition().x;
+				var targetY = this.target.getPosition().y;
 				var locPreviousPosition = this.previousPosition;
 
 				locStartPosition.x = locStartPosition.x + targetX - locPreviousPosition.x;
@@ -56,7 +56,7 @@ module actions {
 				y = y + locStartPosition.y;
 				locPreviousPosition.x = x;
 				locPreviousPosition.y = y;
-				this.target.pos(x, y);
+				this.target.setPosition(x, y);
 			}
 		}
 

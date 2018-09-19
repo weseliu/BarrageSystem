@@ -28,7 +28,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.innerAction.startWithTarget(this.target);
 		}
@@ -53,5 +53,9 @@ module actions {
 		public getInnerAction() {
 			return this.innerAction;
 		}
+	}
+
+	export function easeAction(action: ActionInterval, easeFunc: Function, easeParam: any): EaseAction{
+		return new EaseAction(action, easeFunc, easeParam);
 	}
 }

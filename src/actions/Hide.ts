@@ -1,7 +1,7 @@
 module actions {
 	export class Hide extends ActionInstant {
 		public update(dt) {
-			this.target.visible = false;
+			this.target.setVisible(false);
 		}
 
 		public reverse() {

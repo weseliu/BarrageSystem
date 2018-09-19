@@ -23,15 +23,15 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this.startAngle = target.rotation;
+			this.startAngle = target.getRotation();
 		}
 
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
-				this.target.rotation = this.startAngle + this.angle * dt;
+				this.target.setRotation(this.startAngle + this.angle * dt);
 			}
 		}
 

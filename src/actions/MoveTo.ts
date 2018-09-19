@@ -26,10 +26,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this.positionDelta.x = this.endPosition.x - target.x;
-			this.positionDelta.y = this.endPosition.y - target.y;
+			this.positionDelta.x = this.endPosition.x - target.getPosition().x;
+			this.positionDelta.y = this.endPosition.y - target.getPosition().y;
 		}
 	}
 

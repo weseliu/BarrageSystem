@@ -17,7 +17,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.deltaX = this.skewX;
 			this.deltaY = this.skewY;

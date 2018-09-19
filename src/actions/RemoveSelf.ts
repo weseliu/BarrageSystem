@@ -20,7 +20,7 @@ module actions {
 		}
 	}
 
-	export function removeSelf(isNeedCleanup) {
+	export function removeSelf(isNeedCleanup = true) {
 		return new RemoveSelf(isNeedCleanup);
 	};
 }

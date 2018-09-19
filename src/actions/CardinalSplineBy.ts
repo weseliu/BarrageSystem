@@ -10,10 +10,10 @@ module actions {
 			this.initWithDurationInner(duration, points, tension);
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this.startPosition.x = target.getPositionX();
-			this.startPosition.y = target.getPositionY();
+			this.startPosition.x = target.getPosition().x;
+			this.startPosition.y = target.getPosition().y;
 		}
 
 		public reverse() {

@@ -31,17 +31,17 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 
-			this.startSkewX = target.skewX % 180;
+			this.startSkewX = target.getSkew().x % 180;
 			this.deltaX = this.endSkewX - this.startSkewX;
 			if (this.deltaX > 180)
 				this.deltaX -= 360;
 			if (this.deltaX < -180)
 				this.deltaX += 360;
 
-			this.startSkewY = target.skewY % 360;
+			this.startSkewY = target.getSkew().y % 360;
 			this.deltaY = this.endSkewY - this.startSkewY;
 			if (this.deltaY > 180)
 				this.deltaY -= 360;
@@ -51,8 +51,7 @@ module actions {
 
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
-			this.target.skewX = this.startSkewX + this.deltaX * dt;
-			this.target.skewY = this.startSkewY + this.deltaY * dt;
+			this.target.setSkew(this.startSkewX + this.deltaX * dt, this.startSkewY + this.deltaY * dt);
 		}
 	}
 

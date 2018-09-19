@@ -24,10 +24,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 
-			var locStartAngle = target.rotation % 360.0;
+			var locStartAngle = target.getRotation() % 360.0;
 			var locDiffAngle = this.dstAngle - locStartAngle;
 			if (locDiffAngle > 180) {
 				locDiffAngle -= 360;
@@ -45,7 +45,7 @@ module actions {
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
-				this.target.rotation = this.startAngle + this.diffAngle * dt;
+				this.target.setRotation(this.startAngle + this.diffAngle * dt);
 			}
 		}
 	}

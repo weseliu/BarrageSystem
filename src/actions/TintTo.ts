@@ -30,7 +30,7 @@ module actions {
 
 		public startWithTarget(target) {
 			super.startWithTarget(target);
-			this._from = this.target.color;
+			this._from = this.target.getColor();
 		}
 
 		public update(dt) {
@@ -38,10 +38,10 @@ module actions {
 			var locFrom = this._from, locTo = this._to;
 			if (locFrom) {
 				this.target.setColor(
-					new Color(
-						locFrom.r + (locTo.r - locFrom.r) * dt,
-						locFrom.g + (locTo.g - locFrom.g) * dt,
-						locFrom.b + (locTo.b - locFrom.b) * dt)
+					locFrom.r + (locTo.r - locFrom.r) * dt,
+					locFrom.g + (locTo.g - locFrom.g) * dt,
+					locFrom.b + (locTo.b - locFrom.b) * dt,
+					1
 				);
 			}
 		}

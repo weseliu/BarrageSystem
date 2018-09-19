@@ -109,7 +109,6 @@ module actions {
 			if (locLast !== found)
 				actionFound.startWithTarget(this.target);
 
-			new_t = new_t * actionFound._timesForRepeat;
 			actionFound.update(new_t > 1 ? new_t % 1 : new_t);
 			this.last = found;
 		}

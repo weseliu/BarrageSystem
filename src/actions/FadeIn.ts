@@ -22,7 +22,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			if (this.reverseAction) {
 				this.toOpacity = this.reverseAction.fromOpacity;
 			}

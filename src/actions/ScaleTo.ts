@@ -30,10 +30,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this._startScaleX = target.scaleX;
-			this._startScaleY = target.scaleY;
+			this._startScaleX = target.getScale().x;
+			this._startScaleY = target.getScale().y;
 			this._deltaX = this._endScaleX - this._startScaleX;
 			this._deltaY = this._endScaleY - this._startScaleY;
 		}
@@ -41,8 +41,7 @@ module actions {
 		public update(dt) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
-				this.target.scaleX = this._startScaleX + this._deltaX * dt;
-				this.target.scaleY = this._startScaleY + this._deltaY * dt;
+				this.target.setScale(this._startScaleX + this._deltaX * dt, this._startScaleY + this._deltaY * dt);
 			}
 		}
 	}

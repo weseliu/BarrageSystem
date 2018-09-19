@@ -26,12 +26,12 @@ module actions {
 		public update(time) {
 			time = this.computeEaseTime(time);
 			var fromOpacity = this.fromOpacity !== undefined ? this.fromOpacity : 255;
-			this.target.opacity = fromOpacity + (this.toOpacity - fromOpacity) * time;
+			this.target.setOpacity(fromOpacity + (this.toOpacity - fromOpacity) * time);
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this.fromOpacity = target.opacity;
+			this.fromOpacity = target.getOpacity();
 		}
 	}
 

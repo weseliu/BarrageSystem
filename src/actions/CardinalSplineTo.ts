@@ -79,11 +79,11 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			// Issue #1441 from cocos2d-iphone
 			this.deltaT = 1 / (this.points.length - 1);
-			this.previousPosition = new Point(this.target.getPositionX(), this.target.getPositionY());
+			this.previousPosition = new Point(this.target.getPosition().x, this.target.getPosition().y);
 			this.accumulatedDiff = new Point(0, 0);
 		}
 
@@ -112,8 +112,8 @@ module actions {
 				this.tension, lt);
 
 			var tempX, tempY;
-			tempX = this.target.getPositionX() - this.previousPosition.x;
-			tempY = this.target.getPositionY() - this.previousPosition.y;
+			tempX = this.target.getPosition().x - this.previousPosition.x;
+			tempY = this.target.getPosition().y - this.previousPosition.y;
 			if (tempX !== 0 || tempY !== 0) {
 				var locAccDiff = this.accumulatedDiff;
 				tempX = locAccDiff.x + tempX;
@@ -131,8 +131,8 @@ module actions {
 			return cardinalSplineTo(this.duration, reversePoints, this.tension);
 		}
 
-		public updatePosition(newPos) {
-			this.target.setPosition(newPos);
+		public updatePosition(newPos: Point) {
+			this.target.setPosition(newPos.x, newPos.y);
 			this.previousPosition = newPos;
 		}
 

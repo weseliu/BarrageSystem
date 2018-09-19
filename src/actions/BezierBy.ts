@@ -43,10 +43,10 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			var locPosX = target.getPositionX();
-			var locPosY = target.getPositionY();
+			var locPosX = target.getPosition().x;
+			var locPosY = target.getPosition().y;
 			this.previousPosition.x = locPosX;
 			this.previousPosition.y = locPosY;
 			this.startPosition.x = locPosX;
@@ -71,8 +71,8 @@ module actions {
 				var y = actions.bezierAt(ya, yb, yc, yd, dt);
 
 				var locStartPosition = this.startPosition;
-				var targetX = this.target.getPositionX();
-				var targetY = this.target.getPositionY();
+				var targetX = this.target.getPosition().x;
+				var targetY = this.target.getPosition().y;
 				var locPreviousPosition = this.previousPosition;
 
 				locStartPosition.x = locStartPosition.x + targetX - locPreviousPosition.x;

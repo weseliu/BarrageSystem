@@ -54,8 +54,8 @@ module actions {
 
 	export class Action {
 
-		protected originalTarget: any = null;
-		protected target: any = null;
+		protected originalTarget: ActionObject = null;
+		protected target: ActionObject = null;
 		protected tag: string = "";
 
 		constructor() {
@@ -76,7 +76,7 @@ module actions {
 			return true;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			this.originalTarget = target;
 			this.target = target;
 			Laya.timer.frameLoop(1, this, function () {

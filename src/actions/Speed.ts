@@ -43,7 +43,7 @@ module actions {
 			return new Speed(this.innerAction, this.speed);
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.innerAction.startWithTarget(target);
 		}
