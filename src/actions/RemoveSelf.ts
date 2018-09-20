@@ -6,7 +6,7 @@ module actions {
 			this._isNeedCleanup = isNeedCleanup;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			this.target.removeFromParent(this._isNeedCleanup);
 		}
 

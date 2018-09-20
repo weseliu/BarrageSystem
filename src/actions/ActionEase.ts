@@ -3,9 +3,9 @@ module actions {
 
 		protected innerAction: ActionInterval = null;
 
-		constructor(action: ActionInterval) {
+		constructor(action?: ActionInterval) {
 			super(0);
-			this.initWithAction(action);
+			action && this.initWithAction(action);
 		}
 
 		public initWithAction(action: ActionInterval) {
@@ -21,12 +21,12 @@ module actions {
 		}
 
 		public clone() {
-			var action = new ActionEase(this.innerAction.clone());
+			var action = new ActionEase();
 			action.initWithAction(this.innerAction.clone());
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.innerAction.startWithTarget(this.target);
 		}
@@ -36,7 +36,7 @@ module actions {
 			super.stop();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			this.innerAction.update(dt);
 		}
 

@@ -1,7 +1,7 @@
 module actions {
 	export class Show extends ActionInstant {
 
-		public update(dt) {
+		public update(dt: number) {
 			this.target.setVisible(true);
 		}
 

@@ -97,23 +97,23 @@ module actions {
 
 		}
 
-		public reverse() {
-
+		public reverse() : Action{
+			return null;
 		}
 
-		public getTarget(): any {
+		public getTarget(): ActionObject {
 			return this.target;
 		}
 
-		public setTarget(target: any) {
+		public setTarget(target: ActionObject) {
 			this.target = target;
 		}
 
-		public getOriginalTarget(): any {
+		public getOriginalTarget(): ActionObject {
 			return this.originalTarget;
 		}
 
-		public setOriginalTarget(target: any) {
+		public setOriginalTarget(target: ActionObject) {
 			this.originalTarget = target;
 		}
 

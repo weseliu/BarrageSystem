@@ -4,9 +4,9 @@ module actions {
 
 		public duration: number = 0;
 
-		constructor() {
+		constructor(duration?: number) {
 			super();
-			this.duration = 0;
+			duration && (this.duration = duration);
 		}
 
 		public getDuration(): number {
@@ -24,9 +24,5 @@ module actions {
 		public clone() {
 			return new FiniteTimeAction();
 		}
-	}
-
-	export function finiteTimeAction(): FiniteTimeAction{
-		return new FiniteTimeAction();
 	}
 }

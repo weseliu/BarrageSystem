@@ -12,14 +12,14 @@ module actions {
 		protected startPosition: Point = null;
 		protected previousPosition: Point = null;
 
-		constructor(duration: number, points: Array<Point>) {
-			super(duration);
+		constructor(duration?: number, points?: Array<Point>) {
+			super();
 
 			this.config = new Array<Point>();
 			this.startPosition = new Point();
 			this.previousPosition = new Point();
 
-			this.initWithDurationInner(duration, points);
+			duration && this.initWithDurationInner(duration, points);
 		}
 
 		public initWithDurationInner(duration: number, points: Array<Point>) {
@@ -37,7 +37,7 @@ module actions {
 				newConfigs.push(new Point(selConf.x, selConf.y));
 			}
 
-			var action = new BezierBy(this.duration, newConfigs);
+			var action = new BezierBy();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, newConfigs);
 			return action;
@@ -53,7 +53,7 @@ module actions {
 			this.startPosition.y = locPosY;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
 				var locConfig = this.config;

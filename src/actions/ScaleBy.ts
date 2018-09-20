@@ -3,26 +3,26 @@ module actions {
 
 		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
-			this._deltaX = this._startScaleX * this._endScaleX - this._startScaleX;
-			this._deltaY = this._startScaleY * this._endScaleY - this._startScaleY;
+			this.deltaX = this.startScaleX * this.endScaleX - this.startScaleX;
+			this.deltaY = this.startScaleY * this.endScaleY - this.startScaleY;
 		}
 
 		public reverse() {
-			var action = new ScaleBy(this.duration, 1 / this._endScaleX, 1 / this._endScaleY);
+			var action = new ScaleBy(this.duration, 1 / this.endScaleX, 1 / this.endScaleY);
 			this.cloneDecoration(action);
 			this.reverseEaseList(action);
 			return action;
 		}
 
 		public clone() {
-			var action = new ScaleBy(this.duration, this._endScaleX, this._endScaleY);
+			var action = new ScaleBy();
 			this.cloneDecoration(action);
-			action.initWithDurationInner(this.duration, this._endScaleX, this._endScaleY);
+			action.initWithDurationInner(this.duration, this.endScaleX, this.endScaleY);
 			return action;
 		}
 	}
 
-	export function scaleBy(duration, sx, sy) {
+	export function scaleBy(duration: number, sx: number, sy: number) {
 		return new ScaleBy(duration, sx, sy);
 	};
 }

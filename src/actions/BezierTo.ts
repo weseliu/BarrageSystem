@@ -3,10 +3,10 @@ module actions {
 
 		protected toConfig: Array<Point> = null;
 
-		constructor(duration: number, points: Array<Point>) {
+		constructor(duration?: number, points?: Array<Point>) {
 			super(duration, points);
 			this.toConfig = [];
-			this.initWithDurationInner(duration, points);
+			duration && this.initWithDurationInner(duration, points);
 		}
 
 		public initWithDurationInner(duration: number, points: Array<Point>) {
@@ -18,7 +18,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new BezierTo(this.duration, this.toConfig);
+			var action = new BezierTo();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.toConfig);
 			return action;

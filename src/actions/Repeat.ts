@@ -6,9 +6,9 @@ module actions {
 		protected actionInstant: boolean = false;
 		protected innerAction: FiniteTimeAction = null;
 
-		constructor(action: FiniteTimeAction, times: number) {
-			super(0);
-			times > 0 && this.initWithAction(action, times);
+		constructor(action?: FiniteTimeAction, times?: number) {
+			super();
+			action && this.initWithAction(action, times);
 		}
 
 		public initWithAction(action: FiniteTimeAction, times: number) {
@@ -45,7 +45,7 @@ module actions {
 			super.stop();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			var locInnerAction = this.innerAction;
 			var locDuration = this.duration;

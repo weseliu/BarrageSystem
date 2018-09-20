@@ -1,8 +1,8 @@
 module actions {
 	export class SkewBy extends SkewTo {
 
-		public initWithDurationInner(t, deltaSkewX, deltaSkewY) {
-			if (super.initWithDurationInner(t, deltaSkewX, deltaSkewY)) {
+		public initWithDurationInner(duration: number, deltaSkewX: number, deltaSkewY: number) {
+			if (super.initWithDurationInner(duration, deltaSkewX, deltaSkewY)) {
 				this.skewX = deltaSkewX;
 				this.skewY = deltaSkewY;
 				return true;
@@ -11,7 +11,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new SkewBy(this.duration, this.skewX, this.skewY);
+			var action = new SkewBy();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.skewX, this.skewY);
 			return action;
@@ -33,7 +33,7 @@ module actions {
 		}
 	}
 
-	export function skewBy(t, deltaSkewX, deltaSkewY){
-		return new SkewBy(t, deltaSkewX, deltaSkewY);
+	export function skewBy(duration: number, deltaSkewX: number, deltaSkewY: number){
+		return new SkewBy(duration, deltaSkewX, deltaSkewY);
 	}
 }

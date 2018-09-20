@@ -2,7 +2,7 @@ module actions {
 	
 	export class DelayTime extends ActionInterval {
 
-		public update(dt) { }
+		public update(dt: number) { }
 
 		public reverse() {
 			var action = new DelayTime(this.duration);
@@ -19,7 +19,7 @@ module actions {
 		}
 	}
 
-	export function delayTime(d) {
-		return new DelayTime(d);
+	export function delayTime(time: number) {
+		return new DelayTime(time);
 	};
 }

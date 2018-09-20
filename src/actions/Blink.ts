@@ -3,7 +3,7 @@ module actions {
 		protected times: number = 0;
 		protected originalState: boolean = false;
 
-		constructor(duration, blinks) {
+		constructor(duration?: number, blinks?: number) {
 			super(duration);
 			this.initWithDurationInner(duration, blinks);
 		}
@@ -17,13 +17,13 @@ module actions {
 		}
 
 		public clone() {
-			var action = new Blink(this.duration, this.times);
+			var action = new Blink();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.times);
 			return action;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.target && !this.isDone()) {
 				var slice = 1.0 / this.times;
@@ -43,7 +43,7 @@ module actions {
 		}
 
 		public reverse() {
-			var action = new Blink(this.duration, this.times);
+			var action = new Blink();
 			this.cloneDecoration(action);
 			this.reverseEaseList(action);
 			return action;

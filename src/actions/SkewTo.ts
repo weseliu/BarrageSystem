@@ -9,12 +9,12 @@ module actions {
 		protected deltaX: number = 0;
 		protected deltaY: number = 0;
 
-		constructor(duration, skewX, skewY) {
-			super(duration);
-			this.initWithDurationInner(duration, skewX, skewY);
+		constructor(duration?: number, skewX?: number, skewY?: number) {
+			super();
+			duration && this.initWithDurationInner(duration, skewX, skewY);
 		}
 
-		public initWithDurationInner(duration, skewX, skewY) {
+		public initWithDurationInner(duration: number, skewX: number, skewY: number) {
 			var ret = false;
 			if (super.initWithDuration(duration)) {
 				this.endSkewX = skewX;
@@ -49,13 +49,13 @@ module actions {
 				this.deltaY += 360;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			this.target.setSkew(this.startSkewX + this.deltaX * dt, this.startSkewY + this.deltaY * dt);
 		}
 	}
 
-	export function skewTo(duration, skewX, skewY) {
+	export function skewTo(duration: number, skewX: number, skewY: number) {
 		return new SkewTo(duration, skewX, skewY);
 	};
 }

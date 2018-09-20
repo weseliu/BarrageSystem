@@ -5,13 +5,13 @@ module actions {
 		protected startPosition: Point = new Point();
 		protected previousPosition: Point = new Point();
 
-		constructor(duration: number, deltaX: number, deltaY: number) {
-			super(duration);
+		constructor(duration?: number, deltaX?: number, deltaY?: number) {
+			super();
 
 			this.positionDelta = new Point();
 			this.startPosition = new Point();
 			this.previousPosition = new Point();
-			this.initWithDurationInner(duration, deltaX, deltaY);
+			duration && this.initWithDurationInner(duration, deltaX, deltaY);
 		}
 
 		public initWithDurationInner(duration: number, x: number, y: number) {
@@ -40,7 +40,7 @@ module actions {
 			this.startPosition.y = locPosY;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
 				var x = this.positionDelta.x * dt;

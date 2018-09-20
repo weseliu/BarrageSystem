@@ -6,12 +6,12 @@ module actions {
 		protected jumps: number = 0;
 		protected previousPosition: Point = new Point();
 
-		constructor(duration, x, y, height, jumps) {
-			super(duration);
+		constructor(duration?: number, x?: number, y?: number, height?: number, jumps?: number) {
+			super();
 			this.initWithDurationInner(duration, x, y, height, jumps)
 		}
 
-		public initWithDurationInner(duration, x, y, height, jumps) {
+		public initWithDurationInner(duration: number, x: number, y: number, height: number, jumps: number) {
 			if (super.initWithDuration(duration)) {
 				this.delta.x = x;
 				this.delta.y = y;
@@ -23,7 +23,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new JumpBy(this.duration, this.delta.x, this.delta.y, this.height, this.jumps);
+			var action = new JumpBy();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.delta.x, this.delta.y, this.height, this.jumps);
 			return action;
@@ -39,7 +39,7 @@ module actions {
 			this.startPosition.y = locPosY;
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
 				var frac = dt * this.jumps % 1.0;
@@ -70,7 +70,7 @@ module actions {
 		}
 	}
 
-	export function jumpBy(duration, position, y, height, jumps) {
-		return new JumpBy(duration, position, y, height, jumps);
+	export function jumpBy(duration: number, x: number, y: number, height: number, jumps: number) {
+		return new JumpBy(duration, x, y, height, jumps);
 	};
 }

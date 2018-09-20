@@ -2,9 +2,9 @@ module actions {
 
 	export class FadeIn extends FadeTo {
 		public reverseAction: FadeOut = null;
-		constructor(duration) {
-			super(duration, 255);
-			this.initWithDurationInner(duration, 255);
+		constructor(duration?: number) {
+			super();
+			duration && this.initWithDurationInner(duration, 255);
 		}
 
 		public reverse() {
@@ -16,7 +16,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new FadeIn(this.duration);
+			var action = new FadeIn();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.toOpacity);
 			return action;
@@ -30,7 +30,7 @@ module actions {
 		}
 	}
 
-	export function fadeIn(duration) {
+	export function fadeIn(duration: number) {
 		return new FadeIn(duration);
 	};
 }

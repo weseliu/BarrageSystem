@@ -3,11 +3,11 @@ module actions {
 
 		protected startPosition: Point = null;
 
-		constructor(duration, points, tension) {
-			super(duration, points, tension);
+		constructor(duration?: number, points?: Array<Point>, tension?: number) {
+			super();
 			this.startPosition = new Point(0, 0);
 
-			this.initWithDurationInner(duration, points, tension);
+			duration && this.initWithDurationInner(duration, points, tension);
 		}
 
 		public startWithTarget(target: ActionObject) {
@@ -52,7 +52,7 @@ module actions {
 			return new CardinalSplineBy(this.duration, reverseArray, this.tension);
 		}
 
-		public updatePosition(newPos) {
+		public updatePosition(newPos: Point) {
 			var pos = this.startPosition;
 			var posX = newPos.x + pos.x;
 			var posY = newPos.y + pos.y;
@@ -68,7 +68,7 @@ module actions {
 		}
 	}
 
-	export function cardinalSplineBy(duration, points, tension) {
+	export function cardinalSplineBy(duration: number, points: Array<Point>, tension: number) {
 		return new CardinalSplineBy(duration, points, tension);
 	};
 }

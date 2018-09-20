@@ -4,9 +4,9 @@ module actions {
 		protected easeFunc: Function;
 		protected easeParam: any = null;
 
-		constructor(action: ActionInterval, easeFunc: Function, easeParam: any) {
+		constructor(action?: ActionInterval, easeFunc?: Function, easeParam?: any) {
 			super(0);
-			this.initWithActionInner(action, easeFunc, easeParam);
+			action && this.initWithActionInner(action, easeFunc, easeParam);
 		}
 
 		public initWithActionInner(action: ActionInterval, easeFunc: Function, easeParam: any): boolean {
@@ -38,7 +38,7 @@ module actions {
 			super.stop();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			var newDt = dt;
 			if(this.easeFunc != null){
 				newDt = this.easeFunc(dt, this.easeParam);

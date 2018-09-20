@@ -3,11 +3,11 @@ module actions {
 
 		protected endPosition: Point = new Point();
 
-		constructor(duration: number, x: number, y: number) {
-			super(duration, 0, 0);
+		constructor(duration?: number, x?: number, y?: number) {
+			super();
 
 			this.endPosition = new Point();
-			this.initWithDurationInner(duration, x, y);
+			duration && this.initWithDurationInner(duration, x, y);
 		}
 
 		public initWithDurationInner(duration, x, y) {
@@ -20,7 +20,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new MoveTo(this.duration, this.endPosition.x, this.endPosition.y);
+			var action = new MoveTo();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.endPosition.x, this.endPosition.y);
 			return action;

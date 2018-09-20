@@ -4,7 +4,7 @@ module actions {
 		protected speed: number = 0;
 		protected innerAction: Action = null;
 
-		constructor(action, speed) {
+		constructor(action?: Action, speed?: number) {
 			super();
 			this.speed = 0;
 			this.innerAction = null;
@@ -20,7 +20,7 @@ module actions {
 			this.speed = speed;
 		}
 
-		public setInnerAction(action) {
+		public setInnerAction(action?: Action) {
 			if (this.innerAction !== action) {
 				this.innerAction = action;
 			}
@@ -53,7 +53,7 @@ module actions {
 			super.stop();
 		}
 
-		public step(dt) {
+		public step(dt: number) {
 			this.innerAction.step(dt * this.speed);
 		}
 
@@ -61,12 +61,12 @@ module actions {
 			return this.innerAction.isDone();
 		}
 
-		public reverse() {
+		public reverse() : Action {
 			return new Speed(this.innerAction.reverse(), this.speed);
 		}
 	}
 
-	export function speed(action, speed): Speed{
+	export function speed(action: Action, speed: number): Speed{
 		return new Speed(action, speed);
 	}
 }

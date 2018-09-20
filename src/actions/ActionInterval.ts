@@ -5,7 +5,7 @@ module actions {
 		protected easeList = null;
 		protected speed: number = 1;
 
-		constructor(duration: number) {
+		constructor(duration?: number) {
 			super();
 
 			this.speed = 1;
@@ -32,11 +32,11 @@ module actions {
 			action.easeList = this.easeList;
 		}
 
-		protected reverseEaseList(action) {
+		protected reverseEaseList(action: ActionInterval) {
 			if (this.easeList) {
-				action._easeList = [];
+				action.easeList = [];
 				for (var i = 0; i < this.easeList.length; i++) {
-					action._easeList.push(this.easeList[i].reverse());
+					action.easeList.push(this.easeList[i].reverse());
 				}
 			}
 		}
@@ -85,7 +85,7 @@ module actions {
 			this.update(t > 0 ? t : 0);
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.elapsed = 0;
 			this.firstTick = true;

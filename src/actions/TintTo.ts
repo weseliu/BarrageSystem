@@ -3,16 +3,16 @@ module actions {
 		protected _to: Color = new Color();
 		protected _from: Color = new Color();
 
-		constructor(duration, red, green, blue) {
+		constructor(duration?: number, red?: number, green?: number, blue?: number) {
 			super(duration);
 
 			this._to = new Color();
 			this._from = new Color();
 
-			this.initWithDurationInner(duration, red, green, blue);
+			duration && this.initWithDurationInner(duration, red, green, blue);
 		}
 
-		public initWithDurationInner(duration, red, green, blue) {
+		public initWithDurationInner(duration: number, red: number, green: number, blue: number) {
 			if (super.initWithDuration(duration)) {
 				this._to = new Color(red, green, blue);
 				return true;
@@ -21,19 +21,19 @@ module actions {
 		}
 
 		public clone() {
-			var action = new TintTo(this.duration, locTo.r, locTo.g, locTo.b);
+			var action = new TintTo();
 			this.cloneDecoration(action);
 			var locTo = this._to;
 			action.initWithDurationInner(this.duration, locTo.r, locTo.g, locTo.b);
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this._from = this.target.getColor();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			var locFrom = this._from, locTo = this._to;
 			if (locFrom) {
@@ -47,7 +47,7 @@ module actions {
 		}
 	}
 
-	export function tintTo(duration, red, green, blue) {
+	export function tintTo(duration: number, red: number, green: number, blue: number) {
 		return new TintTo(duration, red, green, blue);
 	};
 }

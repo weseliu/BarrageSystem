@@ -1,6 +1,6 @@
 module actions {
 	export class Hide extends ActionInstant {
-		public update(dt) {
+		public update(dt: number) {
 			this.target.setVisible(false);
 		}
 

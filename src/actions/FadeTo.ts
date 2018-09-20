@@ -3,12 +3,12 @@ module actions {
 		public toOpacity: number = 0;
 		public fromOpacity: number = 0;
 
-		constructor(duration, opacity) {
-			super(duration);
+		constructor(duration?: number, opacity?: number) {
+			super();
 			this.initWithDurationInner(duration, opacity);
 		}
 
-		public initWithDurationInner(duration, opacity) {
+		public initWithDurationInner(duration: number, opacity: number) {
 			if (super.initWithDuration(duration)) {
 				this.toOpacity = opacity;
 				return true;
@@ -23,7 +23,7 @@ module actions {
 			return action;
 		}
 
-		public update(time) {
+		public update(time: number) {
 			time = this.computeEaseTime(time);
 			var fromOpacity = this.fromOpacity !== undefined ? this.fromOpacity : 255;
 			this.target.setOpacity(fromOpacity + (this.toOpacity - fromOpacity) * time);
@@ -35,7 +35,7 @@ module actions {
 		}
 	}
 
-	export function fadeTo(duration, opacity) {
+	export function fadeTo(duration: number, opacity: number) {
 		return new FadeTo(duration, opacity);
 	};
 }

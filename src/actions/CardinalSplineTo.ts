@@ -55,15 +55,16 @@ module actions {
 		protected previousPosition: Point = null;
 		protected accumulatedDiff: Point = null;
 
-		constructor(duration, points, tension) {
+		constructor(duration?: number, points?: Array<Point>, tension?: number) {
 			super(duration);
 			this.points = new Array<Point>();
-			this.initWithDurationInner(duration, points, tension);
+			duration && this.initWithDurationInner(duration, points, tension);
 		}
 
-		public initWithDurationInner(duration, points, tension) {
-			if (!points || points.length === 0)
+		public initWithDurationInner(duration: number, points: Array<Point>, tension: number) {
+			if (!points || points.length === 0) {
 				return false;
+			}
 
 			if (super.initWithDuration(duration)) {
 				this.setPoints(points);
@@ -87,7 +88,7 @@ module actions {
 			this.accumulatedDiff = new Point(0, 0);
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			var p, lt;
 			var ps = this.points;
@@ -145,7 +146,7 @@ module actions {
 		}
 	}
 
-	export function cardinalSplineTo(duration, points, tension) {
+	export function cardinalSplineTo(duration: number, points: Array<Point>, tension: number) {
 		return new CardinalSplineTo(duration, points, tension);
 	};
 }

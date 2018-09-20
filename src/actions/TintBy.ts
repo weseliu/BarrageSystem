@@ -8,12 +8,12 @@ module actions {
 		protected fromG: number = 0;
 		protected fromB: number = 0;
 
-		constructor(duration, deltaRed, deltaGreen, deltaBlue) {
-			super(duration);
-			this.initWithDurationInner(duration, deltaRed, deltaGreen, deltaBlue);
+		constructor(duration?: number, deltaRed?: number, deltaGreen?: number, deltaBlue?: number) {
+			super();
+			duration && this.initWithDurationInner(duration, deltaRed, deltaGreen, deltaBlue);
 		}
 
-		public initWithDurationInner(duration, deltaRed, deltaGreen, deltaBlue) {
+		public initWithDurationInner(duration: number, deltaRed: number, deltaGreen: number, deltaBlue: number) {
 			if (super.initWithDuration(duration)) {
 				this.deltaR = deltaRed;
 				this.deltaG = deltaGreen;
@@ -24,7 +24,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new TintBy(this.duration, this.deltaR, this.deltaG, this.deltaB);
+			var action = new TintBy();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.deltaR, this.deltaG, this.deltaB);
 			return action;
@@ -56,7 +56,7 @@ module actions {
 		}
 	}
 
-	export function tintBy(duration, deltaRed, deltaGreen, deltaBlue) {
+	export function tintBy(duration: number, deltaRed: number, deltaGreen: number, deltaBlue: number) {
 		return new TintBy(duration, deltaRed, deltaGreen, deltaBlue);
 	};
 }

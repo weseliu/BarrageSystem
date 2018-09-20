@@ -4,12 +4,12 @@ module actions {
 		protected function: Function = null;
 		protected data: null;
 
-		constructor(selector, selectorTarget, data) {
+		constructor(selector?: Function, selectorTarget?: any, data?: any) {
 			super();
-			this.initWithFunction(selector, selectorTarget, data);
+			selector && this.initWithFunction(selector, selectorTarget, data);
 		}
 
-		public initWithFunction(selector, selectorTarget, data) {
+		public initWithFunction(selector: Function, selectorTarget: any, data: any) {
 			if (selector) {
 				this.function = selector;
 			}
@@ -28,7 +28,7 @@ module actions {
 			}
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			this.execute();
 		}
 
@@ -38,20 +38,18 @@ module actions {
 
 		public setTargetCallback(sel) {
 			if (sel !== this.selectorTarget) {
-				if (this.selectorTarget)
-					this.selectorTarget = null;
 				this.selectorTarget = sel;
 			}
 		}
 
 		public clone() {
-			var action = new CallFunc(this.function, this.selectorTarget, this.data);
+			var action = new CallFunc();
 			action.initWithFunction(this.function, this.selectorTarget, this.data);
 			return action;
 		}
 	}
 
-	export function callFunc(selector, selectorTarget, data) {
+	export function callFunc(selector: Function, selectorTarget: any, data: any = null) {
 		return new CallFunc(selector, selectorTarget, data);
 	};
 }

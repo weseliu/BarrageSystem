@@ -4,9 +4,9 @@ module actions {
 		protected startAngle: number = 0;
 		protected diffAngle: number = 0;
 
-		constructor(duration: number, deltaAngle: number) {
+		constructor(duration?: number, deltaAngle?: number) {
 			super(duration);
-			this.initWithDurationInner(duration, deltaAngle)
+			duration && this.initWithDurationInner(duration, deltaAngle)
 		}
 
 		private initWithDurationInner(duration: number, deltaAngleX: number): boolean {
@@ -18,7 +18,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new RotateTo(this.duration, this.dstAngle);
+			var action = new RotateTo();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.dstAngle);
 			return action;
@@ -42,7 +42,7 @@ module actions {
 		public reverse() {
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.target) {
 				this.target.setRotation(this.startAngle + this.diffAngle * dt);
@@ -50,7 +50,7 @@ module actions {
 		}
 	}
 
-	export function rotateTo(duration, deltaAngle) : RotateTo{
+	export function rotateTo(duration: number, deltaAngle: number) : RotateTo{
 		return new RotateTo(duration, deltaAngle);
 	};
 }

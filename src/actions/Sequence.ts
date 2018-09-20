@@ -5,7 +5,7 @@ module actions {
 		protected last: number = 0;
 
 		constructor(...actions) {
-			super(0);
+			super();
 			
 			var paramArray = new Array();
 			for (var i = 0; i < actions.length; i++) {
@@ -52,7 +52,7 @@ module actions {
 			return action;
 		}
 
-		public startWithTarget(target) {
+		public startWithTarget(target: ActionObject) {
 			super.startWithTarget(target);
 			this.split = this.actions[0].duration / this.duration;
 			this.last = -1;
@@ -65,7 +65,7 @@ module actions {
 			super.stop();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			var new_t, found = 0;
 			var locSplit = this.split, locActions = this.actions, locLast = this.last, actionFound;
 

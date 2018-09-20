@@ -77,7 +77,7 @@ module actions {
 			super.stop();
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 			dt = this.computeEaseTime(dt);
 			if (this.one)
 				this.one.update(dt);

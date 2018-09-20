@@ -8,10 +8,10 @@ module actions {
 			return true;
 		}
 
-		public step(dt) {
+		public step(dt: number) {
 		}
 
-		public update(dt) {
+		public update(dt: number) {
 		}
 
 		public reverse() {

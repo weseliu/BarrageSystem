@@ -1,8 +1,8 @@
 module actions {
 	export class CatmullRomBy extends CardinalSplineBy {
-		constructor(duration, points) {
+		constructor(duration?: number, points?: Array<Point>) {
 			super(duration, points, 0.5);
-			this.initWithDurationInner(duration, points, 0.5);
+			duration && this.initWithDurationInner(duration, points, 0.5);
 		}
 
 		public clone() {
@@ -12,7 +12,7 @@ module actions {
 		}
 	}
 
-	export function catmullRomBy(dt, points) {
-		return new CatmullRomBy(dt, points);
+	export function catmullRomBy(duration: number, points: Array<Point>) {
+		return new CatmullRomBy(duration, points);
 	};
 }

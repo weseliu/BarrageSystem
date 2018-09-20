@@ -1,7 +1,7 @@
 module actions {
 	export class ToggleVisibility extends ActionInstant {
 
-		public update(dt) {
+		public update(dt: number) {
 			this.target.setVisible(!this.target.getVisible());
 		}
 
