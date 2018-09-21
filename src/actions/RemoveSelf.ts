@@ -7,7 +7,9 @@ module actions {
 		}
 
 		public update(dt: number) {
-			this.target.removeFromParent(this._isNeedCleanup);
+			if (this.target != null) {
+				this.target.removeFromParent(this._isNeedCleanup);
+			}
 		}
 
 

@@ -24,7 +24,7 @@ module actions {
 		}
 
 		public clone() {
-			var action = new MoveBy(this.duration, this.positionDelta.x, this.positionDelta.y);
+			var action = new MoveBy();
 			this.cloneDecoration(action);
 			action.initWithDurationInner(this.duration, this.positionDelta.x, this.positionDelta.y);
 			return action;
